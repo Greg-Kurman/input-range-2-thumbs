@@ -12,8 +12,8 @@
 
     <div class="main">
         <div class="input_text">
-            <input class="inputMin" type="text" min="0" max="10000" onmousemove="slideTwo()">
-            <input class="inputMax" type="text" min="0" max="10000" onmousemove="slideOne()">
+            <input class="inputMin" type="number" min="0" max="10000" onmousemove="slideTwo()">
+            <input class="inputMax" type="number" min="0" max="10000" onmousemove="slideOne()">
         </div>
         <div class="container">
             <div class="slider-track"></div>
@@ -285,7 +285,7 @@
         cursor: pointer;
     }
 
-    input[type="text"] {
+    input[type="number"] {
         border: 2px solid #848383;
         border-radius: 10px;
         -webkit-border-radius: 3px;
