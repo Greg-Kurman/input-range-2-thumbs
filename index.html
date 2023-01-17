@@ -12,14 +12,14 @@
 
     <div class="main">
         <div class="input_text">
-            <input class="inputMin" type="number" min="0" max="10000" onmousemove="slideTwo()">
-            <input class="inputMax" type="number" min="0" max="10000" onmousemove="slideOne()">
+            <input class="inputMin" type="number" min="1" max="10000"  oninput="inputOne()">
+            <input class="inputMax" type="number" min="1" max="10000" onchange="inputTwo()" >
         </div>
         <div class="container">
             <div class="slider-track"></div>
-            <input class="input_range range2" type="range" value="9500" min="0" max="10000" id="slider-2"
+            <input class="input_range range2" type="range" value="10000" min="0" max="10000" id="slider-2"
                 oninput="slideTwo()">
-            <input class="input_range range1" type="range" value="1000" min="0" max="10000" id="slider-1"
+            <input class="input_range range1" type="range" value="1" min="0" max="10000" id="slider-1"
                 oninput="slideOne()">
         </div>
 
@@ -37,8 +37,8 @@
             slideTwo();
         };
 
-        let min
-        let max
+        let min = 1
+        let max = 10000
 
         let sliderOne = document.getElementById("slider-1")
         let sliderTwo = document.getElementById("slider-2")
@@ -51,8 +51,27 @@
         let sliderTrack = document.querySelector(".input_range")
         let sliderMaxValue = document.getElementById("slider-1").max
 
-        // Functions on sliders
+        // Functions 
 
+        function inputOne(){
+            if (parseInt(displayValOne.value) - parseInt(displayValTwo.value) >= 0 || displayValOne.value < 0 ) {
+                displayValOne.value = 1
+            }
+            let data = displayValOne.value
+            sliderOne.value = data
+            min = data
+            fillColor()
+        }
+
+        function inputTwo(){
+            if (parseInt(displayValOne.value) - parseInt(displayValTwo.value) >= 0 || displayValTwo.value > 10000) {
+                displayValTwo.value = 10000
+            }
+            let data = displayValTwo.value
+            sliderTwo.value = data
+            max = data
+            fillColor()
+        }
 
         function slideOne() {
             if (parseInt(sliderTwo.value) - parseInt(sliderOne.value) <= minGap) {
@@ -77,34 +96,6 @@
             percent2 = (sliderTwo.value / sliderMaxValue) * 100;
             sliderTrack.style.background = `linear-gradient(to right, #f2f1f1 ${percent1}% , #009fb4 ${percent1}% , #009fb4 ${percent2}%, #f2f1f1 ${percent2}%)`;
         }
-
-
-        //Listenner on input
-
-        document.querySelector('.inputMin').addEventListener('input', () => {
-            let data = document.querySelector('.inputMin').value;
-            
-            if (isNaN(data)) {
-                return
-            } else {
-                document.querySelector('.range1').value = data
-                min = data
-                fillColor()
-            }
-
-        })
-
-        document.querySelector('.inputMax').addEventListener('input', () => {
-            let data = document.querySelector('.inputMax').value;
-
-            if (isNaN(data)) {
-                return
-            } else {
-                document.querySelector('.range2').value = data
-                max = data
-                fillColor()
-            }
-        })
 
 
         // Post on server
